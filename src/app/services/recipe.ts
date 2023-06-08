@@ -1,3 +1,5 @@
 export class recipe {
-    public constructor(public id: number, public name: string) { }
+    public id: number = 0;
+    public name: string = ''
+    public description: string = ''
 }

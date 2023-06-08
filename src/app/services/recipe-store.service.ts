@@ -14,7 +14,6 @@ const httpOptions = {
 })
 export class RecipeStoreService implements OnInit {
   
-//  recipes$?: Observable<recipestorerecipe[]>;
   recipeStoreUrl = "https://recipestore.azurewebsites.net/recipes";
   //recipeStoreUrl = "https://localhost:7246/recipes";
   
@@ -23,7 +22,6 @@ export class RecipeStoreService implements OnInit {
   }
 
   ngOnInit(): void {
-//    this.recipes$ = this.httpClient.get<recipestorerecipe[]>("https://localhost:7246/recipes");
   }
 
   GetRecipes(): Observable<recipe[]> {
@@ -31,7 +29,11 @@ export class RecipeStoreService implements OnInit {
   }
 
   AddRecipe(recipe: recipe) {
-    console.log(`Add ${recipe.name}`);
-    this.httpClient.post<recipe>(this.recipeStoreUrl, {"id":0,"name":"joepie"}, httpOptions).subscribe();
+    this.httpClient.post<recipe>(this.recipeStoreUrl, recipe, httpOptions).subscribe();
+  }
+
+  DeleteRecipe(recipeId: number) {
+    const url = `${this.recipeStoreUrl}/${recipeId}`;
+    this.httpClient.delete<recipe>(url).subscribe();
   }
 }

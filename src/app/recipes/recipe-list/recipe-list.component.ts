@@ -9,6 +9,7 @@ import { RecipeStoreService } from 'src/app/services/recipe-store.service';
 })
 export class RecipeListComponent implements OnInit {
   recipes?: recipe[];
+  recipeNameToAdd: string = '';
   
   constructor(private recipeService: RecipeStoreService) {
 
@@ -26,7 +27,17 @@ export class RecipeListComponent implements OnInit {
   }
 
   AddRecipe() {
-    let recipe2: recipe = new recipe(0, 'Klotzooi');
+    let recipe2: recipe = new recipe();
+    recipe2.name = this.recipeNameToAdd;
     this.recipeService.AddRecipe(recipe2);
+    this.recipes?.push(recipe2);
+  }
+
+  DeleteRecipe(id: number) {
+    this.recipeService.DeleteRecipe(id);
+    let test = this.recipes?.findIndex(x => x.id === id);
+    console.log(test);
+    this.recipes?.splice(Number(test), 1);
+
   }
 }

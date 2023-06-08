@@ -1,4 +1,6 @@
 <div *ngFor="let recipe of recipes">
-    {{recipe.name}}
+    {{recipe.id}}-{{recipe.name}}
+    <button (click)="DeleteRecipe(recipe.id)">Delete</button>
 </div>
+<input type="text" [(ngModel)]="recipeNameToAdd">
 <button (click)="AddRecipe()">Add recipe</button>
