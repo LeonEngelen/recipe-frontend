@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { recipe } from 'src/app/services/recipe';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Recipe } from 'src/app/services/recipe';
 import { RecipeStoreService } from 'src/app/services/recipe-store.service';
 
 @Component({
@@ -7,17 +8,18 @@ import { RecipeStoreService } from 'src/app/services/recipe-store.service';
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit {
-  recipes?: recipe[];
-  recipeNameToAdd: string = '';
+export class RecipeListComponent implements OnInit, OnDestroy {
+  sub?: Subscription;
+  recipes?: Recipe[];
   
   constructor(private recipeService: RecipeStoreService) {
 
   }
-  ngOnInit(): void {
-    console.log("leon");
 
-    this.recipeService.GetRecipes().subscribe(
+  ngOnInit(): void {
+    console.error("ngOnInit");
+
+    this.sub = this.recipeService.GetRecipes().subscribe(
       {
         next: recipes => {
           this.recipes = recipes;
@@ -26,11 +28,9 @@ export class RecipeListComponent implements OnInit {
       });
   }
 
-  AddRecipe() {
-    let recipe2: recipe = new recipe();
-    recipe2.name = this.recipeNameToAdd;
-    this.recipeService.AddRecipe(recipe2);
-    this.recipes?.push(recipe2);
+  ngOnDestroy(): void {
+    console.error("ngOnDestroy");
+    this.sub?.unsubscribe();
   }
 
   DeleteRecipe(id: number) {
@@ -38,6 +38,5 @@ export class RecipeListComponent implements OnInit {
     let test = this.recipes?.findIndex(x => x.id === id);
     console.log(test);
     this.recipes?.splice(Number(test), 1);
-
   }
 }

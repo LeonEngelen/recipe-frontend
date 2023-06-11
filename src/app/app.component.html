@@ -1,6 +1,12 @@
 <ul>
-    <li>Recepten</li>
-    <li>Recept toevoegen</li>
-    <li>Tips</li>
+    <li>
+        <a [routerLink]="['/recipe-list']">Recepten</a>
+    </li>
+    <li>
+        <a [routerLink]="['/recipe-edit']">Recept toevoegen</a>
+    </li>
+    <li>
+        <a [routerLink]="['/tips']">Tips</a>
+    </li>
 </ul>
-<app-recipe-list></app-recipe-list>
+<router-outlet></router-outlet>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { recipe } from './recipe';
+import { Recipe } from './recipe';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -24,16 +24,16 @@ export class RecipeStoreService implements OnInit {
   ngOnInit(): void {
   }
 
-  GetRecipes(): Observable<recipe[]> {
-    return this.httpClient.get<recipe[]>(this.recipeStoreUrl);
+  GetRecipes(): Observable<Recipe[]> {
+    return this.httpClient.get<Recipe[]>(this.recipeStoreUrl);
   }
 
-  AddRecipe(recipe: recipe) {
-    this.httpClient.post<recipe>(this.recipeStoreUrl, recipe, httpOptions).subscribe();
+  AddRecipe(recipe: Recipe) {
+    this.httpClient.post<Recipe>(this.recipeStoreUrl, recipe, httpOptions).subscribe();
   }
 
   DeleteRecipe(recipeId: number) {
     const url = `${this.recipeStoreUrl}/${recipeId}`;
-    this.httpClient.delete<recipe>(url).subscribe();
+    this.httpClient.delete<Recipe>(url).subscribe();
   }
 }
