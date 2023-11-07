@@ -14,7 +14,6 @@ const httpOptions = {
 })
 export class RecipeStoreService implements OnInit {
   
-  //recipeStoreUrl = "https://recipestore.azurewebsites.net/recipes";
   recipeStoreUrl = "https://engelenrecipestore.azurewebsites.net/recipes";
   //recipeStoreUrl = "https://localhost:7246/recipes";
   
